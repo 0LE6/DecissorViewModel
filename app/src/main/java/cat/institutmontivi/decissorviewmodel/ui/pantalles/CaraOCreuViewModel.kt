@@ -4,4 +4,9 @@ import androidx.lifecycle.ViewModel // NOTE : importante para el concepto de cic
 
 class CaraOCreuViewModel : ViewModel() {
 
+    data class CaraOCreuEstat (
+        val resultat: Int = 0,
+        val temps: Long = 1000
+    )
+
 }
