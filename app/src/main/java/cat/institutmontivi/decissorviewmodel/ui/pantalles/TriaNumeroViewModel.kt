@@ -14,6 +14,11 @@ class TriaNumeroViewModel : ViewModel() {
         estat = estat.copy(minim = 0, maxim = 999, valorTriat = 500)
     }
 
+    fun sortejaNumero() {
+
+        estat = estat.copy(valorTriat = (estat.minim..estat.maxim).random())
+    }
+
     data class TriaNumeroEstat (
 
         val minim: Int = 0,
