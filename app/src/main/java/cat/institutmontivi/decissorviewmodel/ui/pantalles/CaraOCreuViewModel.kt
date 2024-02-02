@@ -11,8 +11,15 @@ class CaraOCreuViewModel : ViewModel() {
         private set
 
     init { // NOTE : inicializar
+
         estat = estat.copy(resultat = 0, temps = 0)
     }
+
+    fun sorteja() {
+
+        estat = estat.copy(resultat = (1..2).random())
+    }
+
     data class CaraOCreuEstat (
         val resultat: Int = 0,
         val temps: Long = 1000
