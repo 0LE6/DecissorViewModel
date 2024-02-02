@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+// TODO : para la practica de piedra papel tener una array con jugadores y elegirlos
 class CaraOCreuViewModel : ViewModel() {
 
     var estat by mutableStateOf(CaraOCreuEstat())
