@@ -17,8 +17,9 @@ import cat.institutmontivi.decissorviewmodel.R
 
 @Preview
 @Composable
-fun OracleResposta (pregunta:String="")
+fun OracleResposta (pregunta:String="", viewModel: OracleRespostaViewModel = androidx.lifecycle.viewmodel.compose.viewModel())
 {
+    /**
     val respostes = listOf<String>("Sí",
         "No",
         "Pot ser",
@@ -27,7 +28,9 @@ fun OracleResposta (pregunta:String="")
         "No ho veig gens clar",
         "Ni de conya",
         "Hi pots comptar",
-        "I jo que sé")
+        "I jo que sé")**/
+    val estat = viewModel.estat // NOTE : cambiamos lo comentado de antes por esto una vez configurado el OracleRespostaViewModel
+
     Box(
         Modifier
             .fillMaxSize()
@@ -35,8 +38,8 @@ fun OracleResposta (pregunta:String="")
                 painterResource(id = R.drawable.oracle_resposta),
                 contentScale = ContentScale.FillBounds
             )){
-        Text(text = pregunta, Modifier.align(Alignment.TopCenter), style = MaterialTheme.typography.displaySmall)
+        Text(text = estat.pregunta, Modifier.align(Alignment.TopCenter), style = MaterialTheme.typography.displaySmall)
 
-        Text(text = respostes[(0..respostes.size-1).random()], Modifier.align(Alignment.BottomCenter), style = MaterialTheme.typography.displayMedium)
+        Text(text = estat.resposta, Modifier.align(Alignment.BottomCenter), style = MaterialTheme.typography.displayMedium)
     }
 }
