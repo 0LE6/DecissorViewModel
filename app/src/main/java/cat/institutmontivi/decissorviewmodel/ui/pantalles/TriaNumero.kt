@@ -20,12 +20,14 @@ import androidx.compose.ui.unit.dp
 
 @Preview
 @Composable
-fun TriaUnNumero ()
+fun TriaUnNumero (viewModel: TriaNumeroViewModel = androidx.lifecycle.viewmodel.compose.viewModel())
 {
 
-    var minim by remember{ mutableStateOf(0) }
-    var maxim by remember{ mutableStateOf(999) }
-    var valorTriat by remember{ mutableStateOf(500) }
+    val estat = viewModel.estat
+
+    //var minim by remember{ mutableStateOf(0) }
+    //var maxim by remember{ mutableStateOf(999) }
+    //var valorTriat by remember{ mutableStateOf(500) }
     Column(
         Modifier
             .padding(32.dp)
@@ -36,12 +38,12 @@ fun TriaUnNumero ()
                 .fillMaxWidth()
                 .weight(1f)) {
             Text(
-                text = ""+valorTriat, Modifier.align(Alignment.Center),
+                text = ""+ estat.valorTriat, Modifier.align(Alignment.Center),
                 style = MaterialTheme.typography.displayLarge,
                 textAlign = TextAlign.Center
             )
         }
-        Boto(text = "Sorteja un altre cop", clic = { valorTriat = (minim .. maxim).random() })
+        Boto(text = "Sorteja un altre cop", clic = { viewModel.sortejaNumero() })
     }
 
 }
