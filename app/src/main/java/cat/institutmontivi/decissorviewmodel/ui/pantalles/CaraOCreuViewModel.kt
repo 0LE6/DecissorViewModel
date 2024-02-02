@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel // NOTE : importante para el concepto de ciclo de vida
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class CaraOCreuViewModel : ViewModel() {
@@ -19,10 +20,15 @@ class CaraOCreuViewModel : ViewModel() {
 
     fun sorteja() {
 
-        estat = estat.copy(resultat = 0) // NOTE : hacemos una copia
+        //estat = estat.copy(resultat = 0) // NOTE : hacemos una copia
         //Thread.sleep(estat.temps) // NOTE : se cambia por la línea de abajo
-        viewModelScope.launch {  }
-        estat = estat.copy(resultat = (1..2).random())
+        // NOTE : basicamanete para que cuando el de a sorteja no se traba y puedes abrir el drawer
+        viewModelScope.launch {
+            estat = estat.copy(resultat = 0)
+            delay(estat.temps)
+            estat = estat.copy(resultat = (1..2).random())
+        }
+        //estat = estat.copy(resultat = (1..2).random())
     }
 
     data class CaraOCreuEstat (
