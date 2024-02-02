@@ -32,22 +32,26 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 @Composable
 fun CaraOCreu (viewModel: CaraOCreuViewModel = viewModel())
 {
-    var resultat by remember { mutableStateOf(0) }
+
+    val estat = viewModel.estat
+
+    // var resultat by remember { mutableStateOf(0) }
+
     Column(
         Modifier
             .padding(32.dp)
             .fillMaxSize())
     {
         var imatge = 0
-        if (resultat == 0)
+        if (estat.resultat == 0)
         {
             imatge =  R.drawable.question
         }
-        else if (resultat == 1)
+        else if (estat.resultat == 1)
         {
             imatge = R.drawable.cara
         }
-        else if (resultat == 2)
+        else if (estat.resultat == 2)
         {
             imatge = R.drawable.creu
         }
@@ -59,7 +63,8 @@ fun CaraOCreu (viewModel: CaraOCreuViewModel = viewModel())
         Boto (
             Modifier
                 .weight(0.75F)
-                .fillMaxHeight(), "Sorteja de nou", {resultat = ((1..2).random())})
+                .fillMaxHeight(), "Sorteja de nou",
+        ) { viewModel.sorteja() }
     }
 }
 @Composable
