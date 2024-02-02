@@ -27,10 +27,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import cat.institutmontivi.decissorviewmodel.R
-
+import androidx.lifecycle.viewmodel.compose.viewModel
 @Preview
 @Composable
-fun CaraOCreu ()
+fun CaraOCreu (viewModel: CaraOCreuViewModel = viewModel())
 {
     var resultat by remember { mutableStateOf(0) }
     Column(
