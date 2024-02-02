@@ -1,6 +1,7 @@
 package cat.institutmontivi.decissorviewmodel.ui.pantalles
 
 
+import android.util.Half.toFloat
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -31,6 +32,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import cat.institutmontivi.decissorviewmodel.dades.PreferenciesDataStore
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
 @Preview
@@ -43,7 +46,7 @@ fun Preferencies ()
     val temps by preferencies.getTempsCaraOCreo.collectAsState(initial = 0) // recoge el valor del flow
     val minim by preferencies.getMinimTriaNumero.collectAsState(initial = 0) // recoge el valor del flow
     val maxim by preferencies.getMaximTriaNumero.collectAsState(initial = 999) // recoge el valor del flow
-    val pregunta by preferencies.getPreguntaPerDefecte.collectAsState(initial = "") // recoge el valor del flow
+    val preguntaPerDefecte by preferencies.getPreguntaPerDefecte.collectAsState(initial = "") // recoge el valor del flow
 
 
 
@@ -95,8 +98,12 @@ fun Preferencies ()
             {
                 Slider(
                     modifier = Modifier.weight(8F),
-                    value = sliderTemps.toFloat(),
-                    onValueChange = {sliderTemps = it },
+                    value = temps.toFloat(), // NOTE : cambio y lo de abajo con el GlobalScope tb.
+                    onValueChange = {
+                        GlobalScope.launch {
+                            preferencies.saveTempsCaraOCreu(it.toLong())
+                        }
+                                    },
                     colors = SliderDefaults.colors(
                         thumbColor = MaterialTheme.colorScheme.secondary,
                         activeTrackColor = MaterialTheme.colorScheme.secondary,
@@ -105,7 +112,7 @@ fun Preferencies ()
                     steps = 6,
                     valueRange = 0f..5000f
                 )
-                Text(text = sliderTemps.toInt().toString(), modifier= Modifier.weight(2F))
+                Text(text = temps.toInt().toString(), modifier= Modifier.weight(2F))
             }
         }
         Card(modifier = Modifier.padding(16.dp), colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface, contentColor = MaterialTheme.colorScheme.onSurface))
@@ -133,8 +140,14 @@ fun Preferencies ()
             {
                 RangeSlider(
                     modifier = Modifier.weight(8F),
-                    value = (sliderMinimMaxim.start.toFloat().. sliderMinimMaxim.endInclusive.toFloat()),
-                    onValueChange = {sliderMinimMaxim = (it.start.toInt()..it.endInclusive.toInt())},
+                    value = (minim.toFloat().. maxim.toFloat()), // NOTE : cambios
+                    onValueChange = {
+                        GlobalScope.launch {
+                            preferencies.saveMinimTriaNumero(it.start.toInt())
+                            preferencies.saveMaximTriaNumero(it.start.toInt())
+                        }
+
+                                    },
                     colors = SliderDefaults.colors(
                         thumbColor = MaterialTheme.colorScheme.secondary,
                         activeTrackColor = MaterialTheme.colorScheme.secondary,
@@ -143,7 +156,7 @@ fun Preferencies ()
                     valueRange = 0F..999F,
                     steps = 1000
                 )
-                Text(text = sliderMinimMaxim.start.toString() + " - " + sliderMinimMaxim.endInclusive.toString(), modifier= Modifier.weight(2F))
+                Text(text = minim.toString() + " - " + maxim.toString(), modifier= Modifier.weight(2F))
             }
             Spacer(Modifier.height(24.dp))
 
@@ -169,8 +182,13 @@ fun Preferencies ()
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 textAlign = TextAlign.Start
             )
-            TextField(value = pregunta,
-                onValueChange = {pregunta=it},
+
+            TextField(value = preguntaPerDefecte,
+                onValueChange = {
+                    GlobalScope.launch {
+                        preferencies.savePreguntaPerDefecte(it)
+                    }
+                },
                 label = {Text("Escriu aqui la pregunta per defecte")}, singleLine = true, modifier = Modifier.fillMaxWidth())
         }
     }

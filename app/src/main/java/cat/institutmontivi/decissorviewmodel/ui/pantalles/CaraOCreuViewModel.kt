@@ -18,8 +18,9 @@ class CaraOCreuViewModel : ViewModel() {
         estat = estat.copy(resultat = 0, temps = 2000)
     }
 
-    fun sorteja() {
+    fun sorteja(temps: Long) {
 
+        estat = estat.copy(temps = temps)
         //estat = estat.copy(resultat = 0) // NOTE : hacemos una copia
         //Thread.sleep(estat.temps) // NOTE : se cambia por la línea de abajo
         // NOTE : básicamente para que cuando le de a sorteja no se traba y puedes abrir el drawer
