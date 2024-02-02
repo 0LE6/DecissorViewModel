@@ -24,9 +24,11 @@ class OracleRespostaViewModel(savedStateHandle: SavedStateHandle) : ViewModel() 
         "Hi pots comptar",
         "I jo que sé")
     fun respon() {
-        estat = estat.copy(respostes[(0..respostes.size-1).random()])
+
+        estat = estat.copy(resposta = respostes[(0..respostes.size-1).random()])
     }
     init {
+
         estat = estat.copy(pregunta = pregunta, resposta = "")
         //estat = estat.copy()
         respon()
