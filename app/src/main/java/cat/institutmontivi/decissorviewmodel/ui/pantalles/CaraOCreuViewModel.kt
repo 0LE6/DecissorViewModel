@@ -17,6 +17,8 @@ class CaraOCreuViewModel : ViewModel() {
 
     fun sorteja() {
 
+       estat = estat.copy(resultat = 0) // NOTE : hacemos una copia
+        Thread.sleep(estat.temps)
         estat = estat.copy(resultat = (1..2).random())
     }
 
