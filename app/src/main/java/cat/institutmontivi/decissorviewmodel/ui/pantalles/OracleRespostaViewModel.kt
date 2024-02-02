@@ -10,6 +10,18 @@ class OracleRespostaViewModel : ViewModel() {
     var estat by mutableStateOf(OracleRespostaEstat())
         private set
 
+    val respostes = listOf<String>("Sí",
+        "No",
+        "Pot ser",
+        "No ho crec",
+        "Segur que sí",
+        "No ho veig gens clar",
+        "Ni de conya",
+        "Hi pots comptar",
+        "I jo que sé")
+    fun respon() {
+        estat = estat.copy(respostes[(0..respostes.size-1).random()])
+    }
     init {
         estat = estat.copy()
     }
