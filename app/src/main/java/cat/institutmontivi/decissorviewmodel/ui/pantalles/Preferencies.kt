@@ -19,24 +19,39 @@ import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import cat.institutmontivi.decissorviewmodel.dades.PreferenciesDataStore
 
 
 @Preview
 @Composable
 fun Preferencies ()
 {
+
+    val preferencies = PreferenciesDataStore(LocalContext.current)
+
+    val temps by preferencies.getTempsCaraOCreo.collectAsState(initial = 0) // recoge el valor del flow
+    val minim by preferencies.getMinimTriaNumero.collectAsState(initial = 0) // recoge el valor del flow
+    val maxim by preferencies.getMaximTriaNumero.collectAsState(initial = 999) // recoge el valor del flow
+    val pregunta by preferencies.getPreguntaPerDefecte.collectAsState(initial = "") // recoge el valor del flow
+
+
+
+    /**
     var sliderTemps by remember { mutableFloatStateOf(0F) }
     var sliderMinimMaxim by remember { mutableStateOf(0..999) }
     var pregunta by remember { mutableStateOf("I ara què pregunto?") }
+    **/
 
     Column(
         Modifier
